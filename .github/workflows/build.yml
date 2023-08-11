@@ -7,13 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        folder: [Foundation.Clients, Foundation.SourceClients]
+        folder: ["src/Foundation.Shared"]
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET Core SDK 5.0.x
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 5.0.x
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
       - name: Install dependencies
         run: |
           cd ${{matrix.folder}}
