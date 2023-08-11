@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        folder: ["src/Foundation.Shared"]
+        folder: ["Foundation.Shared"]
     steps:
       # Checking out repository
       - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
       # pack file to publish to NuGet
       - name: Create a NuGet Package 🔧
         run: |
-          cd ${{matrix.folder}}
+          cd src/${{matrix.folder}}
           export VERSION=${{ github.ref_name }}
           dotnet build --configuration Release
           dotnet pack --configuration Release
@@ -28,5 +28,5 @@ jobs:
       # Publishing with tag name as version
       - name: Publishing to NuGet 🚀
         run: |
-          cd ${{ matrix.folder}}
+          cd src/${{ matrix.folder}}
           dotnet nuget push ${{matrix.folder}}.${{ github.ref_name}}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
